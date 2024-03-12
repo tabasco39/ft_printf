@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aranaivo <aranaivo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 06:57:55 by aranaivo          #+#    #+#             */
-/*   Updated: 2024/03/09 10:33:27 by aranaivo         ###   ########.fr       */
+/*   Created: 2024/03/12 08:09:38 by aranaivo          #+#    #+#             */
+/*   Updated: 2024/03/12 16:05:19 by aranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_printf(const char *s, ...)
 {
-	write(fd, &c, 1);
+	va_list	ap;
+	int		counter;
+
+	counter = 0;
+	va_start(ap, s);
+	while (*s)
+	{
+		if (*s == '%')
+		{
+			s++;
+			counter += print_format(*s, ap);
+		}
+		else
+		{
+			ft_putchar(*s);
+			counter++;
+		}
+		s++;
+	}
+	return (counter);
 }

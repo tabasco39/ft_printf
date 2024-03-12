@@ -6,27 +6,26 @@
 /*   By: aranaivo <aranaivo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 13:08:41 by aranaivo          #+#    #+#             */
-/*   Updated: 2024/03/09 13:36:15 by aranaivo         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:41:07 by aranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
-static void	ft_putchar(char c)
+int	ft_printunsigned_int(unsigned int nb)
 {
-	write(1, &c, 1);
-}
+	int	counter;
 
-void	ft_printunsigned_int(unsigned int nb)
-{
+	counter = 0;
 	if (nb > 9)
 	{
-		ft_printunsigned_int(nb / 10);
+		counter += ft_printunsigned_int(nb / 10) + 1;
 		ft_printunsigned_int(nb % 10);
 	}
 	else
 	{
 		ft_putchar(nb + '0');
+		counter++;
 	}
+	return (counter);
 }

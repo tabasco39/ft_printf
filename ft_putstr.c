@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aranaivo <aranaivo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 13:17:02 by aranaivo          #+#    #+#             */
-/*   Updated: 2024/03/09 14:35:25 by aranaivo         ###   ########.fr       */
+/*   Created: 2024/03/06 10:25:55 by aranaivo          #+#    #+#             */
+/*   Updated: 2024/03/12 16:03:03 by aranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_putstr(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (*s)
+	if (s == NULL)
 	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (s[i])
+	{
+		write(1, &s[i], 1);
 		i++;
-		s++;
 	}
 	return (i);
 }
-
-/*
-int	 main ()
-{
-	char s[] = "hello";
-	printf("longueur: %ld", ft_strlen(s));
-}*/

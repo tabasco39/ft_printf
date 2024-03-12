@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aranaivo <aranaivo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 07:16:29 by aranaivo          #+#    #+#             */
-/*   Updated: 2024/03/09 11:14:18 by aranaivo         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:02:45 by aranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "ft_printf.h"
 
-void	ft_putchar(char c, int fd)
+void	display_integer(int nb, int *count)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putnbr_fd(int nb, int fd)
-{
-	if (nb == -2147483648)
+	if (nb > 9)
 	{
-		ft_putchar('-', fd);
-		ft_putchar('2', fd);
-		ft_putnbr_fd(147483648, fd);
-	}
-	else if (nb < 0)
-	{
-		ft_putchar('-', fd);
-		nb *= -1;
-		ft_putnbr_fd(nb, fd);
-	}
-	else if (nb > 9)
-	{
-		ft_putnbr_fd(nb / 10, fd);
-		ft_putnbr_fd(nb % 10, fd);
+		*count += ft_putnbr(nb / 10) + 1;
+		ft_putchar((nb % 10) + '0');
 	}
 	else
 	{
-		ft_putchar(nb + '0', fd);
+		ft_putchar(nb + '0');
+		(*count)++;
 	}
 }
-/*
-int main()
+
+int	ft_putnbr(int nb)
 {
-	ft_putnbr_fd(55, 1);
+	int	count;
+	int	is_negative;
+
+	count = 0;
+	is_negative = 0;
+	if (nb == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return (11);
+	}
+	else if (nb < 0)
+	{
+		is_negative = 1;
+		ft_putchar('-');
+		nb *= -1;
+	}
+	display_integer(nb, &count);
+	return (count + is_negative);
 }
-*/

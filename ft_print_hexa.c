@@ -6,35 +6,33 @@
 /*   By: aranaivo <aranaivo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:13:02 by aranaivo          #+#    #+#             */
-/*   Updated: 2024/03/09 14:37:00 by aranaivo         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:13:05 by aranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 
-
-#include <unistd.h>
-#include "libftprintf.h"
-
-static void	ft_putchar(char c)
+int	ft_print_hexa(unsigned long int nb, char format)
 {
-	write(1, &c, 1);
-}
+	char	*hexa_base;
+	int		count;
 
-void ft_print_hexa(unsigned int nb, char format)
-{
-    char *hexa_base;
-
-    if (format == 'x')
-        hexa_base = ft_strdup("0123456789abcd");
-    else if (format == 'X')
-        hexa_base = ft_strdup("0123456789ABCD");
-    if (nb > 15)
-    {
-       ft_print_hexa(nb / 16, format);
-       ft_print_hexa(nb % 16, format); 
-    }
-    else
-    {
-        ft_putchar(hexa_base[nb]);
-    }
+	if (format != 'p')
+		nb = (unsigned int)nb;
+	count = 0;
+	if (format == 'x' || format == 'p')
+		hexa_base = "0123456789abcdef";
+	else if (format == 'X')
+		hexa_base = "0123456789ABCDEF";
+	if (nb < 16)
+	{
+		ft_putchar(hexa_base[nb]);
+		count++;
+	}
+	else
+	{
+		count += ft_print_hexa(nb / 16, format) + 1;
+		ft_putchar(hexa_base[nb % 16]);
+	}
+	return (count);
 }
